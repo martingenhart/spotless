@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.0</version>
+        <relativePath></relativePath>
+        <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>ch.allianz.dsp</groupId>
+    <artifactId>spotless</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>spotless</name>
+    <description>Demo project for spotless code formatter.</description>
+
+    <properties>
+        <java.version>11</java.version>
+        <spotless.version>2.22.5</spotless.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>2.22.5</version>
+                <configuration>
+                    <formats>
+                        <format>
+                            <includes>
+                                <include>*.md</include>
+                                <include>.gitignore</include>
+                            </includes>
+                            <trimTrailingWhitespace></trimTrailingWhitespace>
+                            <endWithNewline></endWithNewline>
+                        </format>
+                    </formats>
+
+                    <pom>
+                        <includes>
+                            <include>pom.xml</include>
+                        </includes>
+
+                        <sortPom>
+                            <encoding>UTF-8</encoding>
+                            <!-- The encoding of the pom files -->
+                            <nrOfIndentSpace>4</nrOfIndentSpace>
+                            <!-- Indentation -->
+                        </sortPom>
+
+                    </pom>
+                    <java>
+                        <eclipse>
+                            <file>${project.basedir}/a3k-java-formatting-rules.xml</file>
+                        </eclipse>
+                        <licenseHeader>
+                            <content><![CDATA[/* ****************************************************************************
+ *
+ * COPYRIGHT (c) $YEAR by Allianz-Suisse, Zürich, Switzerland.
+ * All rights reserved. This material contains unpublished, copyrighted
+ * work including confidential and proprietary information of Allianz-Suisse.
+ *
+ ******************************************************************************/]]></content>
+                            <!-- or <file>${project.basedir}/license-header</file> -->
+                        </licenseHeader>
+                    </java>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>spotless</id>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
